@@ -15,6 +15,8 @@ std::vector<std::string> split_string(std::string const& s)
     return std::vector<std::string>(std::istream_iterator<std::string>(in), std::istream_iterator<std::string>()); 
 }
 
+
+// EX 1 :
 bool is_floating(std::string const& s){
     bool is_float = false;
 
