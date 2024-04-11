@@ -6,24 +6,39 @@ auto const is_space = [](char letter){ return letter == ' '; };
 
 std::vector<std::string> split_string(std::string const& str){
     std::vector<std::string> mots {};
-    std::string mot;
+    auto it = str.begin();
 
-    for (char c : str) 
+    while (it != str.end())
     {
-        if (!is_space(c))
+        auto debut_mot = std::find_if(it, str.end(), is_space);
+        auto fin_mot = std::find_if(debut_mot, str.end(), [](char letter){ return letter != ' '; });
+        
+        if (debut_mot != str.end())
         {
-            mot += c;
+            mots.push_back(std::string(debut_mot, fin_mot));
         }
-        else {
-            mots.push_back(mot);
-            mot.clear();
-        }  
+
+        it = fin_mot;
     }
+
+    // std::string mot;
+
+    // for (char c : str) 
+    // {
+    //     if (!is_space(c))
+    //     {
+    //         mot += c;
+    //     }
+    //     else {
+    //         mots.push_back(mot);
+    //         mot.clear();
+    //     }  
+    // }
     
-    if (!mot.empty()) 
-    {
-        mots.push_back(mot);
-    }
+    // if (!mot.empty()) 
+    // {
+    //     mots.push_back(mot);
+    // }
 
     return mots;
 }
@@ -44,6 +59,6 @@ int main(){
     std::cout << "Nombre de lettres du premier mot de la phrase : " << premierMot(str) << std::endl;
 
     std::vector<std::string> nb_mots = split_string(str);
-    std::cout << "Nombre de mots dans la phrase : " << nb_mots.size() << std::endl;
+    std::cout << "Nombre de mots dans la phrase : " << nb_mots.size() + 1 << std::endl;
     
 }
